@@ -1,0 +1,11 @@
+version: '3'
+
+tasks:
+  mutate:
+    desc: "Run mutation with coverage"
+    cmds:
+      - mvn test-compile org.pitest:pitest-maven:mutationCoverage
+  jacoco:
+    desc: "Clean install and generate Jacoco report"
+    cmds:
+      - mvn clean install
