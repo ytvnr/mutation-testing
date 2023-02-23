@@ -24,6 +24,7 @@ drawings:
 transition: slide-left
 # use UnoCSS
 css: unocss
+background: ./assets/xmen.jpeg
 ---
 
 # Introduction to Mutation Testing
@@ -58,7 +59,7 @@ So we can say
 
 ## And what about high coverage?
 
-```java {all|3}
+```java {all|3|all}
 @Test
 void fiftyShouldBeInRange() {
   cut.isInRange(50);
@@ -102,7 +103,7 @@ Else, the mutant survived, meaning it would not be detected if the case occurs i
 **Mutation killing report coupled with Coverage report provides you the Test Strength**
 
 ---
-transition: fade
+transition: fade-out
 layout: fact
 ---
 
@@ -147,123 +148,88 @@ transition: slide-up
 
 # Configuration
 
-- 📝 **Text-based** - focus on the content with Markdown, and then style them later
-- 🎨 **Themable** - theme can be shared and used with npm packages
-- 🧑‍💻 **Developer Friendly** - code highlighting, live coding with autocompletion
-- 🤹 **Interactive** - embedding Vue components to enhance your expressions
-- 🎥 **Recording** - built-in recording and camera view
-- 📤 **Portable** - export into PDF, PNGs, or even a hostable SPA
-- 🛠 **Hackable** - anything possible on a webpage
-
-
-Hover on the bottddom-left corner to see the navigation's controls panel, [learn more](https://sli.dev/guide/navigation.html)
-
-### Keyboard Shortcuts
-
-|     |     |
-| --- | --- |
-| <kbd>right</kbd> / <kbd>space</kbd>| next animation or slide |
-| <kbd>left</kbd>  / <kbd>shift</kbd><kbd>space</kbd> | previous animation or slide |
-| <kbd>up</kbd> | previous slide |
-| <kbd>down</kbd> | next slide |
-
-<!-- https://sli.dev/guide/animations.html#click-animations -->
-<img
-  v-click
-  class="absolute -bottom-9 -left-7 w-80 opacity-50"
-  src="https://sli.dev/assets/arrow-bottom-left.svg"
-/>
-<p v-after class="absolute bottom-23 left-45 opacity-30 transform -rotate-10">Here!</p>
-
-
----
-layout: image-right
-image: https://source.unsplash.com/collection/94734566/1920x1080
----
-
-# Code
-
-Use code snippets and get the highlighting directly![^1]
-
-```ts {all|2|1-6|9|all}
-interface User {
-  id: number
-  firstName: string
-  lastName: string
-  role: string
-}
-
-function updateUser(id: number, update: User) {
-  const user = getUser(id)
-  const newUser = { ...user, ...update }
-  saveUser(id, newUser)
-}
+```xml
+ <plugin>
+  <groupId>org.pitest</groupId>
+  <artifactId>pitest-maven</artifactId>
+  <version>${pitest-parent.version}</version>
+  <configuration>
+    <targetClasses>
+      <param>io.ytvnr.*</param>
+    </targetClasses>
+    <targetTests>
+      <param>io.ytvnr.*</param>
+    </targetTests>
+  </configuration>
+  <dependencies>
+    <dependency>
+      <groupId>org.pitest</groupId>
+      <artifactId>pitest-junit5-plugin</artifactId>
+      <version>${pitest-junit5-plugin.version}</version>
+    </dependency>
+  </dependencies>
+</plugin>
 ```
 
-<arrow v-click="3" x1="400" y1="420" x2="230" y2="330" color="#564" width="3" arrowSize="1" />
-
-[^1]: [Learn More](https://sli.dev/guide/syntax.html#line-highlighting)
-
-<style>
-.footnotes-sep {
-  @apply mt-20 opacity-10;
-}
-.footnotes {
-  @apply text-sm opacity-75;
-}
-.footnote-backref {
-  display: none;
-}
-</style>
-
+---
+transition: slide-up
+layout: image
+image: ./assets/kill-the-mutants.jpeg
 ---
 
-# Components
+<!-- let's try to seek and destroy the mutants-->
 
-<div grid="~ cols-2 gap-4">
-<div>
+---
+transition: fade-out
+---
 
-You can use Vue components directly inside your slides.
+# Interpreting the results
 
-We have provided a few built-in components like `<Tweet/>` and `<Youtube/>` that you can use directly. And adding your custom components is also super easy.
+<img border="rounded" src="assets/pit-report.png">
 
-```html
-<Counter :count="10" />
-```
+---
+transition: fade-out
+---
 
-<!-- ./components/Counter.vue -->
-<Counter :count="10" m="t-4" />
+# Interpreting the results
 
-Check out [the guides](https://sli.dev/builtin/components.html) for more.
+<img border="rounded" src="assets/range-validator-report.png">
 
-</div>
-<div>
+---
+transition: fade-out
+---
 
-```html
-<Tweet id="1390115482657726468" />
-```
+# Mutant states
 
-<Tweet id="1390115482657726468" scale="0.65" />
-
-</div>
-</div>
+- 💗 **Survived** - The mutant survived the mutator. Test is not written well enough
+- 💀 **Killed** - Congratulations! 🎉
+- 💀 **No coverage** - Same as Survived, but there was no test exercising the mutated line of code
+- 💀 **Non viable** - Mutation that could not be loaded by the JVM as the bytecode is invalid. (PIT tries to minimize it)
+- 💀 **Timed out** - May happen if mutator changes the exit condition of loop, making it infinite
+- 💀 **Memory error** - Might occur if a mutation increases the amount of memory used by the system.
+- 💀 **Run error** - replace relational operator `<, <=, >, >=`
 
 <!--
-Presenter note with **bold**, *italic*, and ~~striked~~ text.
+For RangeValidatorTest
 
-Also, HTML elements are valid:
-<div class="flex w-full">
-  <span style="flex-grow: 1;">Left content</span>
-  <span>Right content</span>
-</div>
+first, just add assertions and run task jacoco
+then, add case for 0 (false) and 100 (true)
+
+For Palindrome
+
+just add a case when it's not a palindrome
 -->
-
 
 ---
 class: px-20
 ---
 
-# Themes
+# Pros and cons
+
+https://blog.qatestlab.com/2015/08/12/advantages-mutation-testing/
+
+FIXME: Long a executer
+FIXME: Selectionner les bonnes classes à tester (éviter lesgetter)
 
 Slidev comes with powerful theming support. Themes can provide styles, layouts, components, or even configurations for tools. Switching between themes by just **one edit** in your frontmatter:
 
