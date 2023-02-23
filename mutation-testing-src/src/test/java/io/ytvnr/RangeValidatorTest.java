@@ -1,6 +1,5 @@
 package io.ytvnr;
 
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -17,16 +16,16 @@ class RangeValidatorTest {
 
     @Test
     void fiftyShouldBeInRange() {
-        assertThat(cut.isInRange(50)).isTrue();
+        cut.isInRange(50);
     }
 
     @Test
     void twoHundredShouldNotBeInRange() {
-        assertThat(cut.isInRange(200)).isFalse();
+        cut.isInRange(200);
     }
 
     @Test
     void minusTenShouldNotBeInRange() {
-        assertThat(cut.isInRange(-10)).isFalse();
+        cut.isInRange(-10);
     }
 }

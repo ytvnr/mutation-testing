@@ -1,19 +1,20 @@
 ---
 # try also 'default' to start simple
 theme: seriph
-# random image from a curated Unsplash collection by Anthony
-# like them? see https://unsplash.com/collections/94734566/slidev
-background: https://source.unsplash.com/collection/94734566/1920x1080
+colorSchema: dark
 # apply any windi css classes to the current slide
 class: 'text-center'
 # https://sli.dev/custom/highlighters.html
 highlighter: shiki
 # show line numbers in code blocks
 lineNumbers: false
+fonts:
+  sans: 'Robot'
+  serif: 'Robot Slab'
 # some information about the slides, markdown enabled
 info: |
   ## Slidev Starter Template
-  Presentation slides for developers.
+  Presentation slides about Mutation Testing with PiTest
 
   Learn more at [Sli.dev](https://sli.dev)
 # persist drawings in exports and build
@@ -25,9 +26,9 @@ transition: slide-left
 css: unocss
 ---
 
-# Welcome to Slidev
+# Introduction to Mutation Testing
 
-Presentation slides for developers
+With PiTest.org
 
 <div class="pt-12">
   <span @click="$slidev.nav.next" class="px-2 py-1 rounded cursor-pointer" hover="bg-white bg-opacity-10">
@@ -36,10 +37,7 @@ Presentation slides for developers
 </div>
 
 <div class="abs-br m-6 flex gap-2">
-  <button @click="$slidev.nav.openInEditor()" title="Open in Editor" class="text-xl slidev-icon-btn opacity-50 !border-none !hover:text-white">
-    <carbon:edit />
-  </button>
-  <a href="https://github.com/slidevjs/slidev" target="_blank" alt="GitHub"
+  <a href="https://github.com/ytvnr/mutation-testing" target="_blank" alt="GitHub"
     class="text-xl slidev-icon-btn opacity-50 !border-none !hover:text-white">
     <carbon-logo-github />
   </a>
@@ -53,9 +51,101 @@ The last comment block of each slide will be treated as slide notes. It will be 
 transition: fade-out
 ---
 
-# What is Slidev?
+# Unit testing and code coverage
 
-Slidev is a slides maker and presenter designed for developers, consist of the following features
+A low code coverages indicates that code is not well tested... so it's maybe unsafe.
+So we can say
+
+## And what about high coverage?
+
+```java {all|3}
+@Test
+void fiftyShouldBeInRange() {
+  cut.isInRange(50);
+}
+```
+
+It's pretty easy to improve coverage with tests passing through every line and branch of our code.
+
+> An executed line of code is not a tested one.
+
+---
+transition: slide-up
+layout: image-right
+image: ./assets/mutant.jpeg
+---
+
+# What is Mutation Testing?
+
+A good test is a test that fails when he should fail.
+
+Mutation testing automatically modifies existing code in small ways, called mutation, then check if our tests will fail.
+
+If a mutation does not cause at least one test to fail, then it means the test is not written well enough or a test is missing.
+
+---
+transition: slide-up
+layout: image-right
+image: ./assets/kill-em.jpeg
+---
+
+# Dead mutant are good mutants
+
+Our goal is to kill all the mutants.
+
+If a Unit Test fails, it means the code modification is detected: **the mutant is killed**.
+
+Else, the mutant survived, meaning it would not be detected if the case occurs in the real world.
+
+<br>
+
+**Mutation killing report coupled with Coverage report provides you the Test Strength**
+
+---
+transition: fade
+layout: fact
+---
+
+# PiTest
+
+A state-of-the-art mutation testing system for Java and the JVM
+
+<div class="abs-br m-6 flex gap-2">
+  <a href="http://pitest.org/" target="_blank" alt="PiTest.org"
+    class="text-xl slidev-icon-btn opacity-50 !border-none !hover:text-white">
+    <span> http://pitest.org/ </span>
+    <carbon-book />
+  </a>
+  <a href="https://github.com/hcoles/pitest" target="_blank" alt="PiTest"
+    class="text-xl slidev-icon-btn opacity-50 !border-none !hover:text-white">
+    <span> https://github.com/hcoles/pitest </span>
+    <carbon-logo-github />
+  </a>
+</div>
+
+---
+transition: slide-up
+---
+
+# Mutators
+
+- ❓ **CONDITIONAL_BOUNDARIES** - replace relational operator `<, <=, >, >=`
+- 📭 **EMPTY_RETURNS** - replaces return values with an ‘empty’ value for that type (e.g. empty strings, empty Optionals, zero for integers)
+- ❌ **FALSE_RETURNS** - replaces primitive and boxed boolean return values with false
+- ✅ **TRUE_RETURNS** - replaces primitive and boxed boolean return values with true
+- 🕳️ **NULL_RETURNS** - replaces return values with null (unless annotated with NotNull or mutable by EMPTY_RETURNS)
+- ➕ **INCREMENTS** - replaces increments (++) with decrements (--) and vice versa
+- ➖ **INVERT_NEGS** - inverts negation of integer and floating point numbers (e.g. -1 to 1)
+- 🧮 **MATH** - replaces binary arithmetic operations with another operation (e.g. + to -)
+- ❗️ **NEGATIVE_CONDITIONALS** - negates conditionals (e.g. == to !=)
+- 0️⃣ **PRIMITIVE_RETURNS** - replaces primitive return values with 0 (unless they already return zero)
+- 🗑️ **VOID_METHOD_CALLS** - removes method calls to void methods
+
+---
+transition: slide-up
+---
+
+# Configuration
 
 - 📝 **Text-based** - focus on the content with Markdown, and then style them later
 - 🎨 **Themable** - theme can be shared and used with npm packages
@@ -65,37 +155,6 @@ Slidev is a slides maker and presenter designed for developers, consist of the f
 - 📤 **Portable** - export into PDF, PNGs, or even a hostable SPA
 - 🛠 **Hackable** - anything possible on a webpage
 
-<br>
-<br>
-
-Read more about [Why Slidev?](https://sli.dev/guide/why)
-
-<!--
-You can have `style` tag in markdown to override the style for the current page.
-Learn more: https://sli.dev/guide/syntax#embedded-styles
--->
-
-<style>
-h1 {
-  background-color: #2B90B6;
-  background-image: linear-gradient(45deg, #4EC5D4 10%, #146b8c 20%);
-  background-size: 100%;
-  -webkit-background-clip: text;
-  -moz-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  -moz-text-fill-color: transparent;
-}
-</style>
-
-<!--
-Here is another comment.
--->
-
----
-transition: slide-up
----
-
-# Navigation
 
 Hover on the bottddom-left corner to see the navigation's controls panel, [learn more](https://sli.dev/guide/navigation.html)
 
