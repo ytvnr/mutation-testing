@@ -8,6 +8,6 @@ class PalindromeTest {
 
     @Test
     void shouldBePalindrome() {
-        assertThat(new Palindrome().isPalindrome("nooon")).isTrue();
+        assertThat(new Palindrome().isPalindrome("radar")).isTrue();
     }
 }
