@@ -13,6 +13,10 @@ A https://taskfile.dev/ is provided to quickly generate:
 - Jacoco report: `task jacoco`, it will clean install the project and generate the report under `target/site`
 - PiTest report: `task mutate`, it will generate the pitest report under `pit-reports`
 
+## Solution
+
+You can find the solutions to have a **100% Test Strength** on branch `fix-tests-for-max-test-strength`
+
 ## Slides
 
 Uses https://sli.dev/guide/install.html#starter-template.
