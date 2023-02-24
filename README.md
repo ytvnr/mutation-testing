@@ -1,6 +1,18 @@
 # mutation-testing
 Materials to present Mutation testings principles
 
+## Use cases
+
+Go in See [Java sources](./mutation-testing-src)
+
+```shell
+cd ./mutation-testing-src
+```
+
+A https://taskfile.dev/ is provided to quickly generate:
+- Jacoco report: `task jacoco`, it will clean install the project and generate the report under `target/site`
+- PiTest report: `task mutate`, it will generate the pitest report under `pit-reports`
+
 ## Slides
 
 Uses https://sli.dev/guide/install.html#starter-template.
