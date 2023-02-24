@@ -114,7 +114,7 @@ int index = 0;
 while(...) {
     ...;
     index++;
-    if (index == 10) break;
+    if (index <= 10) break;
 }
 ```
 
