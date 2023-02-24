@@ -16,16 +16,26 @@ class RangeValidatorTest {
 
     @Test
     void fiftyShouldBeInRange() {
-        cut.isInRange(50);
+        assertThat(cut.isInRange(50)).isTrue();
     }
 
     @Test
     void twoHundredShouldNotBeInRange() {
-        cut.isInRange(200);
+        assertThat(cut.isInRange(200)).isFalse();
     }
 
     @Test
     void minusTenShouldNotBeInRange() {
-        cut.isInRange(-10);
+        assertThat(cut.isInRange(-10)).isFalse();
+    }
+
+    @Test
+    void zeroShouldNotBeInRange() {
+        assertThat(cut.isInRange(0)).isFalse();
+    }
+
+    @Test
+    void hundredShouldBeInRange() {
+        assertThat(cut.isInRange(100)).isTrue();
     }
 }
